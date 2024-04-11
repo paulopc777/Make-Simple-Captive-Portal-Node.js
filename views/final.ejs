@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cedtec Login Wifi</title>
+    <link rel="stylesheet" href="public/style.css">
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+
+    <nav class="nav">
+        <img src="public/logo-cedtec-branca-top.webp" alt="">
+        <button class="btn-matriculesesm">SAIBA MAIS</button>
+    </nav>
+
+    <div class="conteiner">
+
+        <form>
+
+            <div class="text-top">
+                <h1>Login WIFI</h1>
+            </div>
+
+
+            <div class="load">
+                <img src="public/load.png" alt="Foto" id="rolandop">
+            </div>
+            <div class="display" id="not">
+                <img src="public/checked.png" alt="Check" id="check">
+                <h2 class="text-mb">Logado na rede</h2>
+                <p class="text">Esta Lei dispõe sobre o tratamento de dados pessoais, inclusive nos meios digitais, por pessoa
+                    natural ou por pessoa jurídica de direito público ou privado, com o objetivo de proteger os direitos
+                    fundamentais de liberdade e de privacidade e o livre desenvolvimento da personalidade da pessoa
+                    natural
+                    <a href="https://cedtec.com.br/">CEDTEC</a>
+                    <a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm">LEI L13709</a>
+                </p>
+            </div>
+        </form>
+
+    </div>
+</body>
+<script>
+    document.getElementById('not').style.display = 'none';
+
+    setTimeout(() => {
+
+        console.log('Site carregado')
+        document.getElementById('rolandop').style.display = 'none';
+        document.getElementById('not').style.display = 'flex';
+
+    }, 3000)
+
+</script>
+
+</html>
