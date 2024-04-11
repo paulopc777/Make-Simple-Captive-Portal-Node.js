@@ -4,9 +4,9 @@ Olá comunidade estou a um tempo tentando criar um portal cativo
 de uma forma que fique bem modulável e de simples configuração.
 
 
- - Linux para hospedar o hotspot com nmcli
- - Iptables para filtrar todo trafego 
- - Node.js para o portal cativo 
+- Linux para hospedar o hotspot com nmcli
+- Iptables para filtrar todo trafego 
+- Node.js para o portal cativo 
 
 Bem casso queira fazer o mínimo possível são as 3 ferramentas que você vai usar.
 
