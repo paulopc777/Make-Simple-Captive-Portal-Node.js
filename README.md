@@ -61,6 +61,25 @@ Não
 
 Isso bloqueara pacotes TCP na porta 80 e 443 que são comumente HTTP e HTTPS.
 
+Para bloquear todo trafego usei de uma ideia simples como 
+
+````
+iptables -t nat -A PREROUTING -j DNAT --to 192.168.1.1
+````
+
+Edicionando isso na última linha fara todo tráfego de qualquer porta seja redirecionado para *192.168.1.1* 
+
+A assim toda o usuário não acessar a internet 
+
+Casso queira ver todas as regra criadas basta usar o comando 
+
+````
+iptables -t nat -L
+````
+
+#### Onde os comandos devem estar na ordem que foram apresentados aqui !
+
+
 
 ## Servidor Node.JS
 
@@ -74,6 +93,13 @@ Isso bloqueara pacotes TCP na porta 80 e 443 que são comumente HTTP e HTTPS.
 Bem uma aplicação express. Bem simples com um captive portal o grande trunfo e 
 que sempre que um **POST** e feito o servidor executa um comando que insere nas regras do iptable que o ip do cliente agora está liberado 
 
+Comando de Liberação para ip de exemplo *192.168.1.130*
+````
+iptables -t nat -I PREROUTING 1 -s 192.168.1.130 -j ACCEPT
+````
+Esse comando com parâmetro -I insere em PREROUTING na linha 1 ou primeira linha que todo trafego vindo de *192.168.1.130* será aceito liberando acesso ao usuario.
+
+#### Comando tambem e executado pelo node.js na parte do servidor 
 ````
 async function SendComand(clientIp) {
 
@@ -103,7 +129,30 @@ async function SendComand(clientIp) {
 
 Bem a ideia de ser simples fez que usei particularmente o nmcli para criar um Hotspot principalmente pela estabilidade 
 
-Pode ser mudado conforme a necessidade 
+
+````
+nmcli con add type wifi ifname wlan0 con-name Hostspot autoconnect yes ssid nome-da-rede
+````
+
+````
+nmcli con modify Hostspot 802-11-wireless.mode ap 802-11-wireless.band bg ipv4.method shared
+````
+
+````
+nmcli con up Hostspot
+````
+
+**Isso criara uma rede simples sem qualquer senha para conexão**
+
+Vale ressaltar que o IP da rede pode variar *Exemplo: 192.168.1.1* de para *Exemplo: 192.168.100.1* ou até mesmo *Exemplo: 10.0.1.1*
+
+Por isso cheque com
+
+`````
+ifconfig
+``````
+
+O nmcli pode ser mudado conforme a necessidade 
 contando que o trafego passe a ser filtrado pelo iptables você tem o *"Core"* do captive portal 
 
 Usei o **Hostpad, mas tive diversas instabilidades com a conexão 
