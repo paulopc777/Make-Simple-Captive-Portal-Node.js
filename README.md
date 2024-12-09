@@ -41,17 +41,17 @@ O redirecionamento e simples
 
 Pense em uma rede <i>Exemplo: 192.168.1.1</i> 
 
-````
+```shell
 iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --sport 80 -j DNAT --to 192.168.1.1:80
-``````
+```
 
 Basicamente todo tráfego da rede *192.168.1.0/24* que usar TCP na porta 80 vai ser redirecionado para *192.168.1.1:80*
 
 O iptables tem a prioridade bem definida, então as primeiras regras serão priorizadas.
 
-````
+```shell
 iptables -t nat -A PREROUTING -s 192.168.1.0/24 -p tcp --sport 443 -j DNAT --to 192.168.1.1:443
-``````
+```
 
 Embora a <a href="connectivitycheck.gstatic.com">connectivitycheck.gstatic.com</a> seja HTTP vale lembrar que isso pode mudar ou varia segundo a fabricante, ou sistema etc...
 
@@ -63,9 +63,9 @@ Isso bloqueara pacotes TCP na porta 80 e 443 que são comumente HTTP e HTTPS.
 
 Para bloquear todo trafego usei de uma ideia simples como 
 
-````
+```shell
 iptables -t nat -A PREROUTING -j DNAT --to 192.168.1.1
-````
+```
 
 Edicionando isso na última linha fara todo tráfego de qualquer porta seja redirecionado para *192.168.1.1* 
 
@@ -73,9 +73,9 @@ A assim toda o usuário não acessar a internet
 
 Casso queira ver todas as regra criadas basta usar o comando 
 
-````
+```shell
 iptables -t nat -L
-````
+```
 
 #### Onde os comandos devem estar na ordem que foram apresentados aqui !
 
@@ -94,13 +94,13 @@ Bem uma aplicação express. Bem simples com um captive portal o grande trunfo e
 que sempre que um **POST** e feito o servidor executa um comando que insere nas regras do iptable que o ip do cliente agora está liberado 
 
 Comando de Liberação para ip de exemplo *192.168.1.130*
-````
+```shell
 iptables -t nat -I PREROUTING 1 -s 192.168.1.130 -j ACCEPT
-````
+```
 Esse comando com parâmetro -I insere em PREROUTING na linha 1 ou primeira linha que todo trafego vindo de *192.168.1.130* será aceito liberando acesso ao usuario.
 
 #### Comando tambem e executado pelo node.js na parte do servidor 
-````
+```js
 async function SendComand(clientIp) {
 
   try {
@@ -123,24 +123,24 @@ async function SendComand(clientIp) {
   }
 
 }
-`````
+```
 
 ## HostSpot 
 
 Bem a ideia de ser simples fez que usei particularmente o nmcli para criar um Hotspot principalmente pela estabilidade 
 
 
-````
+```shell
 nmcli con add type wifi ifname wlan0 con-name Hostspot autoconnect yes ssid nome-da-rede
-````
+```
 
-````
+```shell
 nmcli con modify Hostspot 802-11-wireless.mode ap 802-11-wireless.band bg ipv4.method shared
-````
+```
 
-````
+```shell
 nmcli con up Hostspot
-````
+```
 
 **Isso criara uma rede simples sem qualquer senha para conexão**
 
@@ -148,9 +148,9 @@ Vale ressaltar que o IP da rede pode variar *Exemplo: 192.168.1.1* de para *Exem
 
 Por isso cheque com
 
-`````
+```shell
 ifconfig
-``````
+```
 
 O nmcli pode ser mudado conforme a necessidade 
 contando que o trafego passe a ser filtrado pelo iptables você tem o *"Core"* do captive portal 
